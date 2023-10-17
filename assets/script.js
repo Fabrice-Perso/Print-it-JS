@@ -1,13 +1,14 @@
-// Récupérez les éléments des flèches par leur classe
+// Déclaration des élèments à récupérér pour le carroussel
+//// Flèche
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
+//// Image
 const bannerImage = document.querySelector(".banner-img");
+//// Texte
 const bannerText = document.querySelector("#banner p");
-
-// Définissez un index initial pour suivre la diapositive actuelle
-let currentIndex = 0;
-
-const dots = document.querySelectorAll(".dot"); // Déplacez cette ligne au-dessus
+//// Bullet Point
+const dots = document.querySelectorAll(".dot");
+//// Déclaration d'un tableau pour gérer les différents images et le texte associé
 const slides = [
   {
     image: "slide1.jpg",
@@ -27,13 +28,18 @@ const slides = [
   },
 ];
 
-// Fonction pour mettre à jour l'image et le texte
+// Déclaration index initial pour suivre la diapositive actuelle
+let currentIndex = 0;
+
+// Fonction MAJ de l'image et le texte
 function updateBanner() {
+  //Déclaration du chemin de l'image et du texte associé avec une variable "currentIndex" pour effectuer le changement
   bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
   bannerText.innerHTML = slides[currentIndex].tagLine;
 
-  // Mettez à jour la classe des bullet points
+  // MAJ de la classe des bullet points
   dots.forEach((dot, index) => {
+    // si la valeur de l'index=currentindex(numero du selectionné)
     if (index === currentIndex) {
       dot.classList.add("dot_selected");
     } else {
@@ -42,28 +48,31 @@ function updateBanner() {
   });
 }
 
-// Gestionnaire d'événement pour les bullet points
+// Gestionnaire d'événement pour les bullets points
 dots.forEach((dot, index) => {
+  //action lors d'un click sur un bullet point
   dot.addEventListener("click", () => {
     currentIndex = index;
     updateBanner();
   });
 });
 
-// Ajoutez un event listener pour la flèche gauche
+// Action sur la fleche gauche lors du click
 arrowLeft.addEventListener("click", () => {
-  // Décrémentez l'index pour afficher la diapositive précédente
+  // Décrémente l'index pour afficher la diapositive précédente
   currentIndex--;
+  //si on passe en negatif on repart au numero le plus grand-1 car ca commence à 0
   if (currentIndex < 0) {
     currentIndex = slides.length - 1; // Revenir à la dernière diapositive si nécessaire
   }
   updateBanner();
 });
 
-// Ajoutez un event listener pour la flèche droite (si nécessaire)
+// Action sur la fleche droite lors du click
 arrowRight.addEventListener("click", () => {
   // Incrémentez l'index pour afficher la diapositive suivante
   currentIndex++;
+  //si on passe depasse le nombre d'image, on repart à la premiere a la position 0
   if (currentIndex >= slides.length) {
     currentIndex = 0; // Revenir à la première diapositive si nécessaire
   }
