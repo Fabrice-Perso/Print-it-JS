@@ -7,6 +7,7 @@ const bannerText = document.querySelector("#banner p");
 // Définissez un index initial pour suivre la diapositive actuelle
 let currentIndex = 0;
 
+const dots = document.querySelectorAll(".dot"); // Déplacez cette ligne au-dessus
 const slides = [
   {
     image: "slide1.jpg",
@@ -30,7 +31,24 @@ const slides = [
 function updateBanner() {
   bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
   bannerText.innerHTML = slides[currentIndex].tagLine;
+
+  // Mettez à jour la classe des bullet points
+  dots.forEach((dot, index) => {
+    if (index === currentIndex) {
+      dot.classList.add("dot_selected");
+    } else {
+      dot.classList.remove("dot_selected");
+    }
+  });
 }
+
+// Gestionnaire d'événement pour les bullet points
+dots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    currentIndex = index;
+    updateBanner();
+  });
+});
 
 // Ajoutez un event listener pour la flèche gauche
 arrowLeft.addEventListener("click", () => {
