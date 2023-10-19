@@ -7,7 +7,9 @@ const bannerImage = document.querySelector(".banner-img");
 //// Texte
 const bannerText = document.querySelector("#banner p");
 //// Bullet Point
+const dotsContainer = document.getElementById("dots-container");
 const dots = document.querySelectorAll(".dot");
+
 //// Déclaration d'un tableau pour gérer les différents images et le texte associé
 const slides = [
   {
@@ -31,37 +33,31 @@ const slides = [
 // Déclaration index initial pour suivre la diapositive actuelle
 let currentIndex = 0;
 
-// Fonction MAJ de l'image et le texte
-function updateBanner() {
-  //Déclaration du chemin de l'image et du texte associé avec une variable "currentIndex" pour effectuer le changement
-  bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
-  bannerText.innerHTML = slides[currentIndex].tagLine;
+//Generation des dots selon le nombre de slide dans le tableau
+slides.forEach((slide, index) => {
+  const dot = document.createElement("div");
+  dot.classList.add("dot");
 
-  // MAJ de la classe des bullet points
-  dots.forEach((dot, index) => {
-    // si la valeur de l'index=currentindex(numero du selectionné)
-    if (index === currentIndex) {
-      dot.classList.add("dot_selected");
-    } else {
-      dot.classList.remove("dot_selected");
-    }
-  });
-}
-
-// Gestionnaire d'événement pour les bullets points
-dots.forEach((dot, index) => {
-  //action lors d'un click sur un bullet point
+  // Gestionnaire d'événement pour les bullets points
   dot.addEventListener("click", () => {
     currentIndex = index;
     updateBanner();
   });
+
+  // Ajoutez le dot au conteneur
+  dotsContainer.appendChild(dot);
+
+  // Ajoutez la classe dot_selected au premier dot (index 0)
+  if (index === 0) {
+    dot.classList.add("dot_selected");
+  }
 });
 
 // Action sur la fleche gauche lors du click
 arrowLeft.addEventListener("click", () => {
   // Décrémente l'index pour afficher la diapositive précédente
   currentIndex--;
-  //si on passe en negatif on repart au numero le plus grand-1 car ca commence à 0
+  // Si on passe en négatif, on repart au numéro le plus élevé - 1 car cela commence à 0
   if (currentIndex < 0) {
     currentIndex = slides.length - 1; // Revenir à la dernière diapositive si nécessaire
   }
@@ -72,12 +68,34 @@ arrowLeft.addEventListener("click", () => {
 arrowRight.addEventListener("click", () => {
   // Incrémentez l'index pour afficher la diapositive suivante
   currentIndex++;
-  //si on passe depasse le nombre d'image, on repart à la premiere a la position 0
+  // Si on dépasse le nombre d'images, on repart à la première à la position 0
   if (currentIndex >= slides.length) {
     currentIndex = 0; // Revenir à la première diapositive si nécessaire
   }
   updateBanner();
 });
+
+// Fonction MAJ du slide
+function updateBanner() {
+  //Déclaration du chemin de l'image et du texte associé avec une variable "currentIndex" pour effectuer le changement
+  bannerImage.src = `./assets/images/slideshow/${slides[currentIndex].image}`;
+  bannerText.innerHTML = slides[currentIndex].tagLine;
+
+  // MAJ de la sélection du dot
+  const dots = document.querySelectorAll(".dots .dot"); // on redéclare la variable pour l'actualiser suite à la création  des dots
+  // console.log("dots apres", dots);
+  dots.forEach((dot, index) => {
+    // console.log("Inside forEach Loop");
+    // si la valeur de l'index est égale à currentIndex (numéro de la diapositive sélectionnée)
+    if (index === currentIndex) {
+      dot.classList.add("dot_selected");
+      console.log(`Dot ${index} is selected`);
+    } else {
+      dot.classList.remove("dot_selected");
+      console.log(`Dot ${index} is not selected`);
+    }
+  });
+}
 
 // Appelez la fonction pour afficher la première diapositive
 updateBanner();
