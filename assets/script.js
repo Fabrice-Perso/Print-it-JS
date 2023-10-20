@@ -44,10 +44,10 @@ slides.forEach((slide, index) => {
     updateBanner();
   });
 
-  // Ajoutez le dot au conteneur
+  // Ajout du dot au conteneur
   dotsContainer.appendChild(dot);
 
-  // Ajoutez la classe dot_selected au premier dot (index 0)
+  // Ajout de la classe dot_selected au premier dot (index 0)
   if (index === 0) {
     dot.classList.add("dot_selected");
   }
@@ -66,7 +66,7 @@ arrowLeft.addEventListener("click", () => {
 
 // Action sur la fleche droite lors du click
 arrowRight.addEventListener("click", () => {
-  // Incrémentez l'index pour afficher la diapositive suivante
+  // Incrémente l'index pour afficher la diapositive suivante
   currentIndex++;
   // Si on dépasse le nombre d'images, on repart à la première à la position 0
   if (currentIndex >= slides.length) {
@@ -99,3 +99,21 @@ function updateBanner() {
 
 // Appelez la fonction pour afficher la première diapositive
 updateBanner();
+
+function startAutoSlide() {
+  // Déclaration d'un intervalle pour changer d'image toutes les 5 secondes (5000 millisecondes).
+  setInterval(() => {
+    // Incrémente l'index pour passer à la diapositive suivante
+    currentIndex++;
+    // Si on dépasse le nombre d'images, on repart à la première à la position 0
+    if (currentIndex >= slides.length) {
+      currentIndex = 0;
+    }
+    updateBanner(); // MAJ du carrousel avec la nouvelle image.
+  }, 5000); // Déclaration de l'intervalle à 5000 millisecondes (5 secondes).
+}
+
+//declenche la fonction au chargement de la page
+window.onload = function () {
+  startAutoSlide();
+};
