@@ -41,6 +41,10 @@ slides.forEach((slides, index) => {
 
   // Gestionnaire d'événement pour les bullets points
   dot.addEventListener("click", () => {
+    // Réinitialisez l'intervalle en effaçant l'intervalle actuel et en démarrant un nouveau
+    clearInterval(autoSlideInterval);
+    startAutoSlide();
+
     currentIndex = index;
     updateBanner();
   });
@@ -56,6 +60,10 @@ slides.forEach((slides, index) => {
 
 // Action sur la fleche gauche lors du click
 arrowLeft.addEventListener("click", () => {
+  // Réinitialisez l'intervalle en effaçant l'intervalle actuel et en démarrant un nouveau
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+
   // Décrémente l'index pour afficher la diapositive précédente
   currentIndex--;
   // Si on passe en négatif, on repart au numéro le plus élevé - 1 car cela commence à 0
@@ -67,6 +75,10 @@ arrowLeft.addEventListener("click", () => {
 
 // Action sur la fleche droite lors du click
 arrowRight.addEventListener("click", () => {
+  // Réinitialisez l'intervalle en effaçant l'intervalle actuel et en démarrant un nouveau
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+
   // Incrémente l'index pour afficher la diapositive suivante
   currentIndex++;
   // Si on dépasse le nombre d'images, on repart à la première à la position 0
@@ -101,9 +113,15 @@ function updateBanner() {
 // Appelez la fonction pour afficher la première diapositive
 updateBanner();
 
+// Déclarez l'intervalle à l'échelle globale
+let autoSlideInterval;
+
+// Fonction pour démarrer l'intervalle de changement automatique des images
 function startAutoSlide() {
   // Déclaration d'un intervalle pour changer d'image toutes les 5 secondes (5000 millisecondes).
-  setInterval(() => {
+  autoSlideInterval = setInterval(() => {
+    console.log(`Changement d'image dans 10 secondes (${currentIndex + 1}/${slides.length})`);
+    // Utilisez autoSlideInterval au lieu de setInterval
     // Incrémente l'index pour passer à la diapositive suivante
     currentIndex++;
     // Si on dépasse le nombre d'images, on repart à la première à la position 0
@@ -111,7 +129,7 @@ function startAutoSlide() {
       currentIndex = 0;
     }
     updateBanner(); // MAJ du carrousel avec la nouvelle image.
-  }, 5000); // Déclaration de l'intervalle à 5000 millisecondes (5 secondes).
+  }, 10000); // Déclaration de l'intervalle à 5000 millisecondes (5 secondes).
 }
 
 //declenche la fonction au chargement de la page
