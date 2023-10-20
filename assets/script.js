@@ -89,10 +89,10 @@ function updateBanner() {
     // si la valeur de l'index est égale à currentIndex (numéro de la diapositive sélectionnée)
     if (index === currentIndex) {
       dot.classList.add("dot_selected");
-      console.log(`Dot ${index} is selected`);
+      // console.log(`Dot ${index} is selected`);
     } else {
       dot.classList.remove("dot_selected");
-      console.log(`Dot ${index} is not selected`);
+      // console.log(`Dot ${index} is not selected`);
     }
   });
 }
