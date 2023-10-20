@@ -119,17 +119,24 @@ let autoSlideInterval;
 // Fonction pour démarrer l'intervalle de changement automatique des images
 function startAutoSlide() {
   // Déclaration d'un intervalle pour changer d'image toutes les 5 secondes (5000 millisecondes).
+  let secondsRemaining = 10; // Initialiser le compteur à 10 secondes
   autoSlideInterval = setInterval(() => {
-    console.log(`Changement d'image dans 10 secondes (${currentIndex + 1}/${slides.length})`);
-    // Utilisez autoSlideInterval au lieu de setInterval
-    // Incrémente l'index pour passer à la diapositive suivante
-    currentIndex++;
-    // Si on dépasse le nombre d'images, on repart à la première à la position 0
-    if (currentIndex >= slides.length) {
-      currentIndex = 0;
+    // console.log(`Changement d'image dans ${secondsRemaining} secondes`);
+    secondsRemaining--;
+
+    // Si les secondes atteignent 0, changez d'image et réinitialisez le compteur
+    if (secondsRemaining === 0) {
+      secondsRemaining = 10; // Réinitialisez le compteur à 10 secondes
+
+      // Incrémente l'index pour passer à la diapositive suivante
+      currentIndex++;
+      // Si on dépasse le nombre d'images, on repart à la première à la position 0
+      if (currentIndex >= slides.length) {
+        currentIndex = 0;
+      }
+      updateBanner(); // MAJ du carrousel avec la nouvelle image.
     }
-    updateBanner(); // MAJ du carrousel avec la nouvelle image.
-  }, 10000); // Déclaration de l'intervalle à 5000 millisecondes (5 secondes).
+  }, 1000); // Déclaration de l'intervalle à 1000 millisecondes (1 seconde).
 }
 
 //declenche la fonction au chargement de la page
