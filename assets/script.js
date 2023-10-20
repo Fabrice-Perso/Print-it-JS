@@ -99,7 +99,7 @@ function updateBanner() {
   // console.log("dots apres", dots);
   dots.forEach((dot, index) => {
     // console.log("Inside forEach Loop");
-    // si la valeur de l'index est égale à currentIndex (numéro de la diapositive sélectionnée)
+    // si la valeur de l'index dans le tableau est égale à currentIndex (numéro de la diapositive sélectionnée)
     if (index === currentIndex) {
       dot.classList.add("dot_selected");
       // console.log(`Dot ${index} is selected`);
@@ -118,8 +118,9 @@ let autoSlideInterval;
 
 // Fonction pour démarrer l'intervalle de changement automatique des images
 function startAutoSlide() {
-  // Déclaration d'un intervalle pour changer d'image toutes les 5 secondes (5000 millisecondes).
-  let secondsRemaining = 10; // Initialiser le compteur à 10 secondes
+  // Déclaration d'un intervalle pour changer d'image toutes les x secondes (x000 millisecondes).
+  let secondsRemaining = 10; // Initialise le compteur à 10 secondes
+
   autoSlideInterval = setInterval(() => {
     // console.log(`Changement d'image dans ${secondsRemaining} secondes`);
     secondsRemaining--;
