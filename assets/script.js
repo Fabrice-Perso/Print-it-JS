@@ -34,7 +34,8 @@ const slides = [
 let currentIndex = 0;
 
 //Generation des dots selon le nombre de slide dans le tableau
-slides.forEach((slide, index) => {
+slides.forEach((slides, index) => {
+  console.log("slides", slides);
   const dot = document.createElement("div");
   dot.classList.add("dot");
 
