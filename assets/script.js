@@ -141,6 +141,4 @@ function startAutoSlide() {
 }
 
 //declenche la fonction au chargement de la page
-window.onload = function () {
-  startAutoSlide();
-};
+startAutoSlide();
